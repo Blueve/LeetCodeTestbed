@@ -32,6 +32,17 @@ struct ListNode {
     int val;
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
+
+	ListNode(initializer_list<int> init)
+	{
+		auto node = this;
+		for (auto i : init)
+		{
+			node->val = i;
+			node->next = new ListNode(0);
+			node = node->next;
+		}
+	}
 };
 
 struct TreeLinkNode {
