@@ -35,12 +35,17 @@ struct ListNode {
 
 	ListNode(initializer_list<int> init)
 	{
-		auto node = this;
+		ListNode h(0);
+		auto node = &h;
 		for (auto i : init)
 		{
-			node->val = i;
-			node->next = new ListNode(0);
+			node->next = new ListNode(i);
 			node = node->next;
+		}
+		if (h.next)
+		{
+			this->val = h.next->val;
+			this->next = h.next->next;
 		}
 	}
 };

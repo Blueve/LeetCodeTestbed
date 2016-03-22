@@ -308,3 +308,4 @@ $RECYCLE.BIN/
 *.exe
 *.out
 *.app
+*.opendb
