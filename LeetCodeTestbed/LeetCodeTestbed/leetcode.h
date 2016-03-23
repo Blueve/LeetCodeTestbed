@@ -35,17 +35,17 @@ struct ListNode {
 
 	ListNode(initializer_list<int> init)
 	{
-		ListNode h(0);
-		auto node = &h;
+		auto node = this;
 		for (auto i : init)
 		{
 			node->next = new ListNode(i);
 			node = node->next;
 		}
-		if (h.next)
+		auto tmp = this->next;
+		if(tmp)
 		{
-			this->val = h.next->val;
-			this->next = h.next->next;
+			*this = *tmp;
+			delete tmp;
 		}
 	}
 };
@@ -61,4 +61,10 @@ struct Interval {
 	int end;
 	Interval() : start(0), end(0) {}
 	Interval(int s, int e) : start(s), end(e) {}
+};
+
+struct UndirectedGraphNode {
+	int label;
+	vector<UndirectedGraphNode *> neighbors;
+	UndirectedGraphNode(int x) : label(x) {};
 };
