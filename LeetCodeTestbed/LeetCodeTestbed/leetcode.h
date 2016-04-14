@@ -17,6 +17,8 @@
 #include <map>
 #include <bitset>
 #include <utility>
+#include <xstddef>
+#include <functional>
 
 using namespace std;
 
@@ -25,6 +27,48 @@ struct TreeNode {
 	TreeNode *left;
 	TreeNode *right;
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+
+    TreeNode(string data)
+    {
+        int len = data.length();
+        int num = 0, sign = 1;
+        bool nil = false, number = false;
+        TreeNode* root = NULL;
+        queue<TreeNode**> q;
+        q.push(&root);
+        for (int i(1); i < len; ++i)
+        {
+            auto ch = data[i];
+            if (ch == ',' || ch == ']')
+            {
+                auto node = q.front();
+                q.pop();
+                if (!nil && number)
+                {
+                    *node = new TreeNode(sign * num);
+                    q.push(&((*node)->left));
+                    q.push(&((*node)->right));
+                }
+                sign = 1;
+                num = nil = number = 0;
+            }
+            else if (ch == 'n')
+            {
+                nil = true;
+                i += 3;
+            }
+            else if (ch == '-')
+                sign = -1;
+            else if (ch == ' ');
+            else
+            {
+                number = true;
+                num *= 10;
+                num += ch - '0';
+            }
+        }
+        *this = *root;
+    }
 };
 
 
